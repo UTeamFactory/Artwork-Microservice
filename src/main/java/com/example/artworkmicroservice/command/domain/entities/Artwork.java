@@ -1,4 +1,4 @@
-package com.example.artworkmicroservice.command.entities;
+package com.example.artworkmicroservice.command.domain.entities;
 
 import com.example.artworkmicroservice.command.domain.values.*;
 import lombok.Data;
