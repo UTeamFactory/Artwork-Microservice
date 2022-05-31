@@ -1,4 +1,9 @@
 package com.example.artworkmicroservice.query.projections;
 
-public class ArtworkHistoryViewRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ArtworkHistoryViewRepository extends JpaRepository<ArtworkHistoryView,String> {
 }
