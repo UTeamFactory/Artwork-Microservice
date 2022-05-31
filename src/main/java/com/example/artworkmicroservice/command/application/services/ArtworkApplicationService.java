@@ -5,6 +5,7 @@ import com.example.artworkmicroservice.command.application.dtos.request.EditArtw
 import com.example.artworkmicroservice.command.application.dtos.response.CreateArtworkResponse;
 import com.example.artworkmicroservice.command.application.dtos.response.EditArtworkResponse;
 import com.example.artworkmicroservice.command.application.validators.CreateArtworkValidator;
+import com.example.artworkmicroservice.command.application.validators.DeleteArtworkValidator;
 import com.example.artworkmicroservice.command.application.validators.EditArtworkValidator;
 import com.example.artworkmicroservice.command.infrastructure.ArtworkRegistryRepository;
 import com.example.artworkmicroservice.common.application.Notification;
@@ -22,12 +23,14 @@ import java.util.concurrent.CompletableFuture;
 public class ArtworkApplicationService {
     private final CreateArtworkValidator createArtworkValidator;
     private final EditArtworkValidator editArtworkValidator;
+    private final DeleteArtworkValidator deleteArtworkValidator;
     protected final CommandGateway commandGateway;
     private final ArtworkRegistryRepository artworkRegistryRepository;
 
-    public ArtworkApplicationService(CreateArtworkValidator createArtworkValidator, EditArtworkValidator editArtworkValidator, CommandGateway commandGateway, ArtworkRegistryRepository artworkRegistryRepository) {
+    public ArtworkApplicationService(CreateArtworkValidator createArtworkValidator, EditArtworkValidator editArtworkValidator, DeleteArtworkValidator deleteArtworkValidator, CommandGateway commandGateway, ArtworkRegistryRepository artworkRegistryRepository) {
         this.createArtworkValidator = createArtworkValidator;
         this.editArtworkValidator = editArtworkValidator;
+        this.deleteArtworkValidator = deleteArtworkValidator;
         this.commandGateway = commandGateway;
         this.artworkRegistryRepository = artworkRegistryRepository;
     }

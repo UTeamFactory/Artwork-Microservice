@@ -2,6 +2,7 @@ package com.example.artworkmicroservice.command.application.handlres;
 
 import com.example.artworkmicroservice.command.infrastructure.ArtworkRegistry;
 import com.example.artworkmicroservice.command.infrastructure.ArtworkRegistryRepository;
+import com.example.artworkmicroservice.contracts.events.ArtworkDeleted;
 import com.example.artworkmicroservice.contracts.events.ArtworkEdited;
 import com.example.artworkmicroservice.contracts.events.ArtworkRegistered;
 import org.axonframework.config.ProcessingGroup;
@@ -44,5 +45,11 @@ public class ArtworkEventHandler {
                 event.getLink(),
                 event.getImage()
         ));
+    }
+
+    @EventHandler
+    public void on(ArtworkDeleted event){
+        Optional<ArtworkRegistry> ArtworkRegistryOptional = artworkRegistryRepository.getByArtworkId(event.getId());
+        ArtworkRegistryOptional.ifPresent(artworkRegistryRepository::delete);
     }
 }

@@ -12,7 +12,7 @@ public class Description {
     private final static int MAX_LENGTH = 200;
     private final static int MIN_LENGTH = 0;
 
-    private Description(String description) { value = description; }
+    public Description(String description) { value = description; }
 
     protected Description() {
         this.value = "";

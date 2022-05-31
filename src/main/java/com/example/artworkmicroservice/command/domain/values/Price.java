@@ -11,7 +11,7 @@ public class Price {
 
     private Double value;
 
-    private Price(Double price) {value = price;}
+    public Price(Double price) {value = price;}
 
     protected Price(){
         this.value = 0.0;

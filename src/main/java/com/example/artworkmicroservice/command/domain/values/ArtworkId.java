@@ -14,7 +14,7 @@ public class ArtworkId implements Serializable {
         this.value = value;
     }
 
-    protected ArtworkId(){
+    public ArtworkId(){
         this.value = UUID.randomUUID();
     }
 

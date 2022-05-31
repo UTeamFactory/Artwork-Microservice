@@ -11,7 +11,7 @@ public class Image {
 
     private String value;
 
-    private Image(String image) { value = image; }
+    public Image(String image) { value = image; }
 
     protected Image() {
         this.value = "";
