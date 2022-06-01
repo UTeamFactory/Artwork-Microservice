@@ -1,8 +1,10 @@
 package com.example.artworkmicroservice.command.api;
 
 import com.example.artworkmicroservice.command.application.dtos.request.CreateArtworkRequest;
+import com.example.artworkmicroservice.command.application.dtos.request.DeleteArtworkRequest;
 import com.example.artworkmicroservice.command.application.dtos.request.EditArtworkRequest;
 import com.example.artworkmicroservice.command.application.dtos.response.CreateArtworkResponse;
+import com.example.artworkmicroservice.command.application.dtos.response.DeleteArtworkResponse;
 import com.example.artworkmicroservice.command.application.dtos.response.EditArtworkResponse;
 import com.example.artworkmicroservice.command.application.services.ArtworkApplicationService;
 import com.example.artworkmicroservice.command.infrastructure.ArtworkRegistryRepository;
@@ -48,6 +50,22 @@ public class ArtworkCommandController {
         try {
             editArtworkRequest.setId(artworkId);
             Result<EditArtworkResponse, Notification> result = artworkApplicationService.edit(editArtworkRequest);
+            if (result.isSuccess()) {
+                return ApiController.ok(result.getSuccess());
+            }
+            return ApiController.error(result.getFailure().getErrors());
+        } catch (AggregateNotFoundException exception) {
+            return ApiController.notFound();
+        } catch (Exception e) {
+            return ApiController.serverError();
+        }
+    }
+
+    @DeleteMapping("/{artworkId}")
+    public ResponseEntity<Object> delete(@PathVariable("artworkId") String artworkId, @RequestBody DeleteArtworkRequest deleteArtworkRequest) {
+        try {
+            deleteArtworkRequest.setId(artworkId);
+            Result<DeleteArtworkResponse, Notification> result = artworkApplicationService.delete(deleteArtworkRequest);
             if (result.isSuccess()) {
                 return ApiController.ok(result.getSuccess());
             }

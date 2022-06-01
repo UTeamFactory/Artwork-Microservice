@@ -1,8 +1,10 @@
 package com.example.artworkmicroservice.command.application.services;
 
 import com.example.artworkmicroservice.command.application.dtos.request.CreateArtworkRequest;
+import com.example.artworkmicroservice.command.application.dtos.request.DeleteArtworkRequest;
 import com.example.artworkmicroservice.command.application.dtos.request.EditArtworkRequest;
 import com.example.artworkmicroservice.command.application.dtos.response.CreateArtworkResponse;
+import com.example.artworkmicroservice.command.application.dtos.response.DeleteArtworkResponse;
 import com.example.artworkmicroservice.command.application.dtos.response.EditArtworkResponse;
 import com.example.artworkmicroservice.command.application.validators.CreateArtworkValidator;
 import com.example.artworkmicroservice.command.application.validators.DeleteArtworkValidator;
@@ -11,6 +13,7 @@ import com.example.artworkmicroservice.command.infrastructure.ArtworkRegistryRep
 import com.example.artworkmicroservice.common.application.Notification;
 import com.example.artworkmicroservice.common.application.Result;
 import com.example.artworkmicroservice.common.application.ResultType;
+import com.example.artworkmicroservice.contracts.commands.DeleteArtwork;
 import com.example.artworkmicroservice.contracts.commands.EditArtwork;
 import com.example.artworkmicroservice.contracts.commands.RegisterArtwork;
 import org.axonframework.commandhandling.gateway.CommandGateway;
@@ -98,5 +101,25 @@ public class ArtworkApplicationService {
                 editArtwork.getImage()
         );
         return Result.success(editArtworkResponse);
+    }
+
+    public Result<DeleteArtworkResponse, Notification> delete(DeleteArtworkRequest deleteArtworkRequest) throws Exception {
+        Notification notification = this.deleteArtworkValidator.validate(deleteArtworkRequest);
+        if (notification.hasErrors()) {
+            return Result.failure(notification);
+        }
+        DeleteArtwork deleteArtwork = new DeleteArtwork(
+                deleteArtworkRequest.getId().trim()
+        );
+        CompletableFuture<Object> future = commandGateway.send(deleteArtwork);
+        CompletableFuture<ResultType> futureResult = future.handle((ok, ex) ->  (ex != null) ? ResultType.FAILURE : ResultType.SUCCESS);
+        ResultType resultType = futureResult.get();
+        if (resultType == ResultType.FAILURE) {
+            throw new Exception();
+        }
+        DeleteArtworkResponse deleteArtworkResponse = new DeleteArtworkResponse(
+                deleteArtwork.getId()
+        );
+        return Result.success(deleteArtworkResponse);
     }
 }
