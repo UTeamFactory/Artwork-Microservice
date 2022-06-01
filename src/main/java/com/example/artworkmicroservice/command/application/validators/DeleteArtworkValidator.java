@@ -17,7 +17,7 @@ public class DeleteArtworkValidator {
 
         String id = deleteArtworkRequest.getId().trim();
         if (id.isEmpty()) {
-            notification.addError("Artist is deleted or no exist");
+            notification.addError("Artist does not exist");
         }
 
         if (notification.hasErrors()) {
