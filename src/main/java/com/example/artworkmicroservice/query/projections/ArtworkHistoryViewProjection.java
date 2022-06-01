@@ -1,5 +1,6 @@
 package com.example.artworkmicroservice.query.projections;
 
+import com.example.artworkmicroservice.contracts.events.ArtworkDeleted;
 import com.example.artworkmicroservice.contracts.events.ArtworkEdited;
 import com.example.artworkmicroservice.contracts.events.ArtworkRegistered;
 import org.axonframework.eventhandling.EventHandler;
@@ -47,5 +48,18 @@ public class ArtworkHistoryViewProjection {
         }
     }
 
+    @EventHandler
+    public void on(ArtworkDeleted event){
+        Optional<ArtworkHistoryView> artworkHistoryViewOptional = artworkHistoryViewRepository.getLastById(event.getId().toString());
+        if (artworkHistoryViewOptional.isPresent()){
+            ArtworkHistoryView artworkHistoryView = artworkHistoryViewOptional.get();
+            artworkHistoryView = new ArtworkHistoryView(artworkHistoryView);
+
+            artworkHistoryView.setId(event.getId());
+            artworkHistoryView.setCreatedAt(event.getOccurredOn());
+
+            artworkHistoryViewRepository.save(artworkHistoryView);
+        }
+    }
 
 }
