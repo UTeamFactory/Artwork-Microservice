@@ -21,7 +21,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/artworks")
-@Tag(name="Artwork")
+@Tag(name="Artworks")
 public class ArtworkQueryController {
     private final ArtworkViewRepository artworkViewRepository;
     private final ArtworkHistoryViewRepository artworkHistoryViewRepository;

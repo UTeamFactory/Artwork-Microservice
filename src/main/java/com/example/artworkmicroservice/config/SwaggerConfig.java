@@ -12,12 +12,12 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI springShopOpenAPI() {
         return new OpenAPI()
-                .info(new Info().title("Customers microservice")
-                        .description("Customers microservice")
+                .info(new Info().title("Artwork microservice")
+                        .description("Artwork microservice")
                         .version("v0.0.1")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")))
                 .externalDocs(new ExternalDocumentation()
-                        .description("Customers microservice")
-                        .url("https://github.com/George2811/server-side-software-sw51"));
+                        .description("Artworks microservice")
+                        .url("https://github.com/UTeamFactory/Artwork-Microservice"));
     }
 }
