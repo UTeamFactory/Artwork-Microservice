@@ -1,5 +1,6 @@
 package com.example.artworkmicroservice.command.domain.entities;
 
+import com.example.artworkmicroservice.command.domain.enums.ArtType;
 import com.example.artworkmicroservice.contracts.commands.DeleteArtwork;
 import com.example.artworkmicroservice.contracts.commands.EditArtwork;
 import com.example.artworkmicroservice.contracts.commands.RegisterArtwork;
@@ -18,13 +19,13 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 @Aggregate
 public class Artwork {
     @AggregateIdentifier
-    private String id;
-    private String artistId;
+    private String artworkId;
     private String description;
     private String title;
     private Double price;
     private String link;
     private String image;
+    private String artistId;
 
     public Artwork(){}
 
@@ -33,7 +34,7 @@ public class Artwork {
         Instant now = Instant.now();
         apply(
                 new ArtworkRegistered(
-                        command.getId(),
+                        command.getArtworkId(),
                         command.getArtistId(),
                         command.getTitle(),
                         command.getDescription(),
@@ -50,7 +51,7 @@ public class Artwork {
         Instant now = Instant.now();
         apply(
                 new ArtworkEdited(
-                        command.getId(),
+                        command.getArtworkId(),
                         command.getArtistId(),
                         command.getTitle(),
                         command.getDescription(),
@@ -75,7 +76,7 @@ public class Artwork {
 
     @EventSourcingHandler
     protected void on (ArtworkRegistered event){
-        id = event.getId();
+        artworkId = event.getId();
         artistId = event.getArtistId();
         title = event.getTitle();
         description = event.getDescription();
@@ -96,6 +97,6 @@ public class Artwork {
 
     @EventSourcingHandler
     protected void on(ArtworkDeleted event){
-        id = event.getId();
+        artworkId = event.getId();
     }
 }

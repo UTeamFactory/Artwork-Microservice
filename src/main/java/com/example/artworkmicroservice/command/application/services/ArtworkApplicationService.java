@@ -60,7 +60,7 @@ public class ArtworkApplicationService {
             throw new Exception();
         }
         CreateArtworkResponse createArtworkResponseDto = new CreateArtworkResponse(
-                createArtwork.getId(),
+                createArtwork.getArtworkId(),
                 createArtwork.getArtistId(),
                 createArtwork.getDescription(),
                 createArtwork.getTitle(),
@@ -92,7 +92,7 @@ public class ArtworkApplicationService {
             throw new Exception();
         }
         EditArtworkResponse editArtworkResponse = new EditArtworkResponse(
-                editArtwork.getId(),
+                editArtwork.getArtworkId(),
                 editArtwork.getArtistId(),
                 editArtwork.getDescription(),
                 editArtwork.getTitle(),

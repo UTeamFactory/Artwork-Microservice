@@ -55,9 +55,12 @@ public class ArtworkQueryController {
         }
     }
 
+    // CONSUMIR MICROSERVIO DE ARTIST
+    @GetMapping("/history/{id}")
+    @Operation(summary = "Get artwork history")
     public ResponseEntity<List<ArtworkHistoryView>> getHistoryById(@PathVariable("id") String id){
         try {
-            List<ArtworkHistoryView> artworks = artworkHistoryViewRepository.getArtworkHistoryById(id);
+            List<ArtworkHistoryView> artworks = artworkHistoryViewRepository.getHistoryByArtworkId(id);
             return new ResponseEntity<List<ArtworkHistoryView>>(artworks,HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

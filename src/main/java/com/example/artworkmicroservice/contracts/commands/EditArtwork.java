@@ -6,7 +6,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 @Value
 public class EditArtwork {
     @TargetAggregateIdentifier
-    private String id;
+    private String artworkId;
     private String artistId;
     private String description;
     private String title;
@@ -19,11 +19,11 @@ public class EditArtwork {
     public Double getPrice() {return price; }
     public String getLink() {return link; }
     public String getImage() {return image; }
-    public String getId() {
-        return id;
+    public String getArtworkId() {
+        return artworkId;
     }
-    public EditArtwork(String id, String artistId, String description, String title, Double price, String link, String image){
-        this.id = id;
+    public EditArtwork(String artworkId, String artistId, String description, String title, Double price, String link, String image){
+        this.artworkId = artworkId;
         this.artistId = artistId;
         this.description = description;
         this.title = title;

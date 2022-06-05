@@ -13,7 +13,7 @@ public class ArtworkView {
 
     @Id
     @Column(length = 36) @Getter @Setter
-    private String id;
+    private String artworkId;
 
     @Column(length = 75) @Getter @Setter
     private String title;
@@ -37,8 +37,8 @@ public class ArtworkView {
 
     public ArtworkView() {}
 
-    public ArtworkView(String id, String title, String description, String link, String image, Double price, Instant createdAt) {
-        this.id = id;
+    public ArtworkView(String artworkId, String title, String description, String link, String image, Double price, Instant createdAt) {
+        this.artworkId = artworkId;
         this.title = title;
         this.description = description;
         this.link = link;

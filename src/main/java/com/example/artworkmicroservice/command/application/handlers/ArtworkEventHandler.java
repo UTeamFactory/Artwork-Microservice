@@ -1,4 +1,4 @@
-package com.example.artworkmicroservice.command.application.handlres;
+package com.example.artworkmicroservice.command.application.handlers;
 
 import com.example.artworkmicroservice.command.infrastructure.ArtworkRegistry;
 import com.example.artworkmicroservice.command.infrastructure.ArtworkRegistryRepository;

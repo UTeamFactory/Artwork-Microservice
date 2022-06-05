@@ -32,7 +32,7 @@ public class ArtworkHistoryViewProjection {
 
     @EventHandler
     public void on(ArtworkEdited event){
-        Optional<ArtworkHistoryView> artworkHistoryViewOptional = artworkHistoryViewRepository.getLastById(event.getId().toString());
+        Optional<ArtworkHistoryView> artworkHistoryViewOptional = artworkHistoryViewRepository.getLastByArtworkId(event.getId().toString());
         if (artworkHistoryViewOptional.isPresent()){
             ArtworkHistoryView artworkHistoryView = artworkHistoryViewOptional.get();
             artworkHistoryView = new ArtworkHistoryView(artworkHistoryView);
@@ -50,12 +50,12 @@ public class ArtworkHistoryViewProjection {
 
     @EventHandler
     public void on(ArtworkDeleted event){
-        Optional<ArtworkHistoryView> artworkHistoryViewOptional = artworkHistoryViewRepository.getLastById(event.getId().toString());
+        Optional<ArtworkHistoryView> artworkHistoryViewOptional = artworkHistoryViewRepository.getLastByArtworkId(event.getId().toString());
         if (artworkHistoryViewOptional.isPresent()){
             ArtworkHistoryView artworkHistoryView = artworkHistoryViewOptional.get();
             artworkHistoryView = new ArtworkHistoryView(artworkHistoryView);
 
-            artworkHistoryView.setId(event.getId());
+            artworkHistoryView.setArtworkId(event.getId());
             artworkHistoryView.setCreatedAt(event.getOccurredOn());
 
             artworkHistoryViewRepository.save(artworkHistoryView);

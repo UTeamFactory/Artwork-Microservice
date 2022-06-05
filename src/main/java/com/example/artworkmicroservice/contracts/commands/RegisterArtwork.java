@@ -6,18 +6,13 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 @Value
 public class RegisterArtwork {
     @TargetAggregateIdentifier
-    private String id;
+    private String artworkId;
 
     private String artistId;
-
     private String description;
-
     private String title;
-
     private Double price;
-
     private String link;
-
     private String image;
 
     public String getArtistId() {return artistId; }
@@ -32,12 +27,12 @@ public class RegisterArtwork {
 
     public String getImage() {return image; }
 
-    public String getId() {
-        return id;
+    public String getArtworkId() {
+        return artworkId;
     }
 
-    public RegisterArtwork(String id, String artistId, String description, String title, Double price, String link, String image){
-        this.id = id;
+    public RegisterArtwork(String artworkId, String artistId, String description, String title, Double price, String link, String image){
+        this.artworkId = artworkId;
         this.artistId = artistId;
         this.description = description;
         this.title = title;

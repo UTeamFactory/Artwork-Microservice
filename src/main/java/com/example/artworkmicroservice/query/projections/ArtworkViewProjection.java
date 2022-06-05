@@ -52,7 +52,7 @@ public class ArtworkViewProjection {
         Optional<ArtworkView> artworkViewOptional = artworkViewRepository.findById(event.getId().toString());
         if (artworkViewOptional.isPresent()){
             ArtworkView artworkView = artworkViewOptional.get();
-            artworkView.setId(event.getId());
+            artworkView.setArtworkId(event.getId());
             artworkView.setUpdatedAt(event.getOccurredOn());
             artworkViewRepository.save(artworkView);
         }

@@ -19,7 +19,7 @@ public class ArtworkHistoryView {
     private Long artworkHistoryId;
 
     @Column(length = 36) @Getter @Setter
-    private String id;
+    private String artworkId;
 
     @Column(length = 75) @Getter @Setter
     private String title;
@@ -41,8 +41,8 @@ public class ArtworkHistoryView {
 
     public ArtworkHistoryView() {}
 
-    public ArtworkHistoryView(String id, String title, String description, String link, String image, Double price, Instant createdAt) {
-        this.id = id;
+    public ArtworkHistoryView(String artworkId, String title, String description, String link, String image, Double price, Instant createdAt) {
+        this.artworkId = artworkId;
         this.title = title;
         this.description = description;
         this.link = link;
@@ -52,7 +52,7 @@ public class ArtworkHistoryView {
     }
 
     public ArtworkHistoryView(ArtworkHistoryView artworkHistoryView) {
-        this.id = artworkHistoryView.getId();
+        this.artworkId = artworkHistoryView.getArtworkId();
         this.title = artworkHistoryView.getTitle();
         this.description = artworkHistoryView.getDescription();
         this.link = artworkHistoryView.getLink();
