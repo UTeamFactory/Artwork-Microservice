@@ -1,6 +1,6 @@
 package com.example.artworkmicroservice.command.domain.entities;
 
-import com.example.artworkmicroservice.command.domain.enums.ArtType;
+import com.example.artworkmicroservice.command.domain.values.*;
 import com.example.artworkmicroservice.contracts.commands.DeleteArtwork;
 import com.example.artworkmicroservice.contracts.commands.EditArtwork;
 import com.example.artworkmicroservice.contracts.commands.RegisterArtwork;
@@ -12,6 +12,7 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
 
+import javax.persistence.*;
 import java.time.Instant;
 
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
@@ -20,12 +21,42 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 public class Artwork {
     @AggregateIdentifier
     private String artworkId;
-    private String description;
-    private String title;
-    private Double price;
-    private String link;
-    private String image;
-    private String artistId;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "value", column = @Column(name = "description", length = 200, nullable = false))
+    })
+    private Description description;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "value", column = @Column(name = "title", length = 100, nullable = false))
+    })
+    private Title title;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "value", column = @Column(name = "price", nullable = false))
+    })
+    private Price price;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "value", column = @Column(name = "link", length = 200, nullable = false))
+    })
+    private Link link;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "value", column = @Column(name = "image", nullable = false))
+    })
+    private Image image;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "value", column = @Column(name = "artist_id", nullable = false))
+    })
+    private ArtistId artistId;
 
     public Artwork(){}
 
@@ -77,22 +108,22 @@ public class Artwork {
     @EventSourcingHandler
     protected void on (ArtworkRegistered event){
         artworkId = event.getId();
-        artistId = event.getArtistId();
-        title = event.getTitle();
-        description = event.getDescription();
-        price = event.getPrice();
-        image = event.getImage();
-        link = event.getLink();
+        artistId = new ArtistId(event.getArtistId());
+        title = new Title(event.getTitle());
+        description = new Description(event.getDescription());
+        price = new Price(event.getPrice());
+        image = new Image(event.getImage());
+        link = new Link(event.getLink());
     }
 
     @EventSourcingHandler
     protected void on (ArtworkEdited event){
-        artistId = event.getArtistId();
-        title = event.getTitle();
-        description = event.getDescription();
-        price = event.getPrice();
-        image = event.getImage();
-        link = event.getLink();
+        artistId = new ArtistId(event.getArtistId());
+        title = new Title(event.getTitle());
+        description = new Description(event.getDescription());
+        price = new Price(event.getPrice());
+        image = new Image(event.getImage());
+        link = new Link(event.getLink());
     }
 
     @EventSourcingHandler
