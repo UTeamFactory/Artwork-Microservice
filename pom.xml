@@ -8,9 +8,9 @@
         <version>2.6.7</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
+    <groupId>com.perustars</groupId>
     <artifactId>Artwork-Microservice</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>Artwork-Microservice</name>
     <description>Artwork-Microservice</description>
     <properties>
@@ -19,6 +19,16 @@
         <spring-cloud.version>2021.0.2</spring-cloud.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>com.perustars</groupId>
+            <artifactId>artwork-contracts</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.perustars</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.1</version>
+        </dependency>
         <dependency>
             <groupId>org.axonframework</groupId>
             <artifactId>axon-spring-boot-starter</artifactId>
