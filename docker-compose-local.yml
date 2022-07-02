@@ -1,0 +1,8 @@
+services:
+  artwork-microservice-deploy:
+    image: artwork-microservice-deploy
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
