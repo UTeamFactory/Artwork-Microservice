@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class EditArtworkRequest {
-    private @Getter @Setter String id;
+    private @Getter @Setter String artworkId;
     private @Getter String artistId;
     private @Getter String description;
     private @Getter String title;

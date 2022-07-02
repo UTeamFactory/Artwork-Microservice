@@ -15,7 +15,7 @@ public class AxonConfig {
         XStream xStream = new XStream();
 
         xStream.allowTypesByWildcard(new String[] {
-                "com.perustars.artwork.contracts.**"
+                "com.perustars.artworkcontracts.**"
         });
         return xStream;
     }

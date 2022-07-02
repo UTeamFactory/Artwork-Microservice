@@ -1,12 +1,12 @@
 package com.perustars.artworkmicroservice.command.domain.entities;
 
 import com.perustars.artworkmicroservice.command.domain.values.*;
-import com.perustars.artwork.contracts.commands.DeleteArtwork;
-import com.perustars.artwork.contracts.commands.EditArtwork;
-import com.perustars.artwork.contracts.commands.RegisterArtwork;
-import com.perustars.artwork.contracts.events.ArtworkDeleted;
-import com.perustars.artwork.contracts.events.ArtworkEdited;
-import com.perustars.artwork.contracts.events.ArtworkRegistered;
+import com.perustars.artworkcontracts.commands.DeleteArtwork;
+import com.perustars.artworkcontracts.commands.EditArtwork;
+import com.perustars.artworkcontracts.commands.RegisterArtwork;
+import com.perustars.artworkcontracts.events.ArtworkDeleted;
+import com.perustars.artworkcontracts.events.ArtworkEdited;
+import com.perustars.artworkcontracts.events.ArtworkRegistered;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -99,7 +99,7 @@ public class Artwork {
         Instant now = Instant.now();
         apply(
                 new ArtworkDeleted(
-                        command.getId(),
+                        command.getArtworkId(),
                         now
                 )
         );
@@ -107,7 +107,7 @@ public class Artwork {
 
     @EventSourcingHandler
     protected void on (ArtworkRegistered event){
-        artworkId = event.getId();
+        artworkId = event.getArtworkId();
         artistId = new ArtistId(event.getArtistId());
         title = new Title(event.getTitle());
         description = new Description(event.getDescription());
@@ -128,6 +128,6 @@ public class Artwork {
 
     @EventSourcingHandler
     protected void on(ArtworkDeleted event){
-        artworkId = event.getId();
+        artworkId = event.getArtworkId();
     }
 }

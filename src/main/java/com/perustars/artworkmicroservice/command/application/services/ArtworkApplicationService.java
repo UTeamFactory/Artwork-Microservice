@@ -13,9 +13,9 @@ import com.perustars.artworkmicroservice.command.infrastructure.ArtworkRegistryR
 import com.perustars.common.application.Notification;
 import com.perustars.common.application.Result;
 import com.perustars.common.application.ResultType;
-import com.perustars.artwork.contracts.commands.DeleteArtwork;
-import com.perustars.artwork.contracts.commands.EditArtwork;
-import com.perustars.artwork.contracts.commands.RegisterArtwork;
+import com.perustars.artworkcontracts.commands.DeleteArtwork;
+import com.perustars.artworkcontracts.commands.EditArtwork;
+import com.perustars.artworkcontracts.commands.RegisterArtwork;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.stereotype.Component;
 
@@ -52,7 +52,7 @@ public class ArtworkApplicationService {
                 createArtworkRequest.getPrice(),
                 createArtworkRequest.getLink().trim(),
                 createArtworkRequest.getImage().trim()
-        );
+                );
         CompletableFuture<Object> future = commandGateway.send(createArtwork);
         CompletableFuture<ResultType> futureResult = future.handle((ok, ex) -> (ex != null) ? ResultType.FAILURE : ResultType.SUCCESS);
         ResultType resultType = futureResult.get();
@@ -77,14 +77,14 @@ public class ArtworkApplicationService {
             return Result.failure(notification);
         }
         EditArtwork editArtwork = new EditArtwork(
-                editArtworkRequest.getId().trim(),
+                editArtworkRequest.getArtworkId().trim(),
                 editArtworkRequest.getArtistId().trim(),
                 editArtworkRequest.getDescription().trim(),
                 editArtworkRequest.getTitle().trim(),
                 editArtworkRequest.getPrice(),
                 editArtworkRequest.getLink().trim(),
                 editArtworkRequest.getImage().trim()
-        );
+                );
         CompletableFuture<Object> future = commandGateway.send(editArtwork);
         CompletableFuture<ResultType> futureResult = future.handle((ok, ex) -> (ex != null) ? ResultType.FAILURE : ResultType.SUCCESS);
         ResultType resultType = futureResult.get();
@@ -118,7 +118,7 @@ public class ArtworkApplicationService {
             throw new Exception();
         }
         DeleteArtworkResponse deleteArtworkResponse = new DeleteArtworkResponse(
-                deleteArtwork.getId()
+                deleteArtwork.getArtworkId()
         );
         return Result.success(deleteArtworkResponse);
     }

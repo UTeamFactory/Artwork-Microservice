@@ -1,8 +1,8 @@
 package com.perustars.artworkmicroservice.query.projections;
 
-import com.perustars.artwork.contracts.events.ArtworkDeleted;
-import com.perustars.artwork.contracts.events.ArtworkEdited;
-import com.perustars.artwork.contracts.events.ArtworkRegistered;
+import com.perustars.artworkcontracts.events.ArtworkDeleted;
+import com.perustars.artworkcontracts.events.ArtworkEdited;
+import com.perustars.artworkcontracts.events.ArtworkRegistered;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +19,7 @@ public class ArtworkHistoryViewProjection {
     @EventHandler
     public void on(ArtworkRegistered event){
         ArtworkHistoryView artworkHistoryView = new ArtworkHistoryView(
-                event.getId(),
+                event.getArtworkId(),
                 event.getTitle(),
                 event.getDescription(),
                 event.getLink(),
@@ -32,7 +32,7 @@ public class ArtworkHistoryViewProjection {
 
     @EventHandler
     public void on(ArtworkEdited event){
-        Optional<ArtworkHistoryView> artworkHistoryViewOptional = artworkHistoryViewRepository.getLastByArtworkId(event.getId().toString());
+        Optional<ArtworkHistoryView> artworkHistoryViewOptional = artworkHistoryViewRepository.getLastByArtworkId(event.getArtworkId().toString());
         if (artworkHistoryViewOptional.isPresent()){
             ArtworkHistoryView artworkHistoryView = artworkHistoryViewOptional.get();
             artworkHistoryView = new ArtworkHistoryView(artworkHistoryView);
@@ -50,12 +50,12 @@ public class ArtworkHistoryViewProjection {
 
     @EventHandler
     public void on(ArtworkDeleted event){
-        Optional<ArtworkHistoryView> artworkHistoryViewOptional = artworkHistoryViewRepository.getLastByArtworkId(event.getId().toString());
+        Optional<ArtworkHistoryView> artworkHistoryViewOptional = artworkHistoryViewRepository.getLastByArtworkId(event.getArtworkId().toString());
         if (artworkHistoryViewOptional.isPresent()){
             ArtworkHistoryView artworkHistoryView = artworkHistoryViewOptional.get();
             artworkHistoryView = new ArtworkHistoryView(artworkHistoryView);
 
-            artworkHistoryView.setArtworkId(event.getId());
+            artworkHistoryView.setArtworkId(event.getArtworkId());
             artworkHistoryView.setCreatedAt(event.getOccurredOn());
 
             artworkHistoryViewRepository.save(artworkHistoryView);

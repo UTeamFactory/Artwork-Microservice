@@ -48,7 +48,7 @@ public class ArtworkCommandController {
     @PutMapping("/{artworkId}")
     public ResponseEntity<Object> edit(@PathVariable("artworkId") String artworkId, @RequestBody EditArtworkRequest editArtworkRequest) {
         try {
-            editArtworkRequest.setId(artworkId);
+            editArtworkRequest.setArtworkId(artworkId);
             Result<EditArtworkResponse, Notification> result = artworkApplicationService.edit(editArtworkRequest);
             if (result.isSuccess()) {
                 return ApiController.ok(result.getSuccess());

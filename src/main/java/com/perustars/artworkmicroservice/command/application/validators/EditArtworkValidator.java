@@ -22,7 +22,7 @@ public class EditArtworkValidator {
 
     public Notification validate(EditArtworkRequest editArtworkRequest) {
         Notification notification = new Notification();
-        String artworkId = editArtworkRequest.getId().trim();
+        String artworkId = editArtworkRequest.getArtworkId().trim();
         if(artworkId.isEmpty()) {
             notification.addError("Artwork id is required");
         }
